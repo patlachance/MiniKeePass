@@ -42,6 +42,7 @@
     [searchBar release];
     
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStylePlain target:appDelegate action:@selector(showSettingsView)];
+    settingsButton.imageInsets = UIEdgeInsetsMake(2, 0, -2, 0);
     UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportFilePressed)];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPressed)];
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -308,7 +309,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         
         // Update the group
-        KdbGroup *g = [[group.groups objectAtIndex:indexPath.row] retain];
+        KdbGroup *g = [group.groups objectAtIndex:indexPath.row];
         g.name = groupName;
         g.image = editGroupViewController.selectedImageIndex;
         
