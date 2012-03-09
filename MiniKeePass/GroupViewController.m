@@ -357,7 +357,13 @@
     }
     
     actionSheet.delegate = self;
-    [appDelegate showActionSheet:actionSheet];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        UIBarButtonItem *buttonItem = [self.toolbarItems objectAtIndex:4];
+        [appDelegate showActionSheet:actionSheet fromBarButtonItem:buttonItem animated:YES];
+    } else {
+        [appDelegate showActionSheet:actionSheet];        
+    }
+    
     [actionSheet release];    
 }
 
@@ -432,6 +438,14 @@
         
         // Select the row
         [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+    }
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad || orientation == UIInterfaceOrientationPortrait) {
+        return YES;
+    } else {
+        return NO;
     }
 }
 

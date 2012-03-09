@@ -46,8 +46,14 @@
             if (url.scheme == nil) {
                 url = [NSURL URLWithString:[@"http://" stringByAppendingString:text]];
             }
+            
+            WebViewController *webViewController = appDelegate.webViewController;
+            if (webViewController != nil) {
+                [webViewController loadUrl:url];
+            } else {
+                [[UIApplication sharedApplication] openURL:url];
+            }
 
-            [[UIApplication sharedApplication] openURL:url];
             break;
         }
 

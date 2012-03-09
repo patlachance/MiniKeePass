@@ -180,4 +180,12 @@ static NSInteger deleteOnFailureAttemptsValues[] = {3, 5, 10, 15};
     }
 }
 
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad || orientation == UIInterfaceOrientationPortrait) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end

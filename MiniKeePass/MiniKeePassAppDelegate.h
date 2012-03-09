@@ -18,11 +18,13 @@
 #import <UIKit/UIKit.h>
 #import "FilesViewController.h"
 #import "DatabaseDocument.h"
+#import "WebViewController.h"
 
 #define NUM_IMAGES 69
 
 @interface MiniKeePassAppDelegate : NSObject <UIApplicationDelegate, UIActionSheetDelegate> {
     UIWindow *window;
+    WebViewController *webViewController;
     UINavigationController *navigationController;
     UIActionSheet* myActionSheet;
     id<UIActionSheetDelegate> myActionSheetDelegate;
@@ -37,6 +39,7 @@
 }
 
 @property (nonatomic, retain) UIWindow *window;
+@property (nonatomic, readonly) WebViewController *webViewController;
 @property (nonatomic, retain) DatabaseDocument *databaseDocument;
 @property (nonatomic, assign) BOOL locked;
 @property (nonatomic, readonly) BOOL backgroundSupported;
@@ -47,7 +50,8 @@
 - (UIImage*)loadImage:(NSUInteger)index;
 - (void)showSettingsView;
 - (void)dismissSettingsView;
-- (void)showActionSheet:(UIActionSheet*)actionSheet;
+- (void)showActionSheet:(UIActionSheet *)actionSheet;
+- (void)showActionSheet:(UIActionSheet *)actionSheet fromBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated;
 - (void)dismissActionSheet;
 
 @end

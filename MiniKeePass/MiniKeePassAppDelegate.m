@@ -27,6 +27,7 @@
 @implementation MiniKeePassAppDelegate
 
 @synthesize window;
+@synthesize webViewController;
 @synthesize locked;
 @synthesize databaseDocument;
 @synthesize backgroundSupported;
@@ -78,9 +79,30 @@ static NSStringEncoding passwordEncodingValues[] = {
     
     navigationController.toolbarHidden = NO;
     
+    UIViewController *rootViewContoller = navigationController;
+    UISplitViewController *splitViewController;
+    webViewController = nil;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        webViewController = [[WebViewController alloc] init];
+        [webViewController loadUrl:[NSURL URLWithString:@"http://minikeepass.github.com"]];
+        
+        UINavigationController *iPadNavController = [[UINavigationController alloc] initWithRootViewController:webViewController];
+
+        splitViewController = [[UISplitViewController alloc] init];
+        splitViewController.delegate = webViewController;
+        splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, iPadNavController, nil];
+        if ([splitViewController respondsToSelector:@selector(setPresentsWithGesture:)]) {
+            // 5.1+
+            [splitViewController setPresentsWithGesture:YES];
+        }
+        
+        rootViewContoller = splitViewController;
+    }
+    
+    
     // Create the window
     window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    window.rootViewController = navigationController;
+    window.rootViewController = rootViewContoller;
     [window makeKeyAndVisible];
     
     // Check if backgrounding is supported
@@ -309,17 +331,24 @@ static NSStringEncoding passwordEncodingValues[] = {
 - (void)showSettingsView {
     SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissSettingsView)];
-    settingsViewController.navigationItem.rightBarButtonItem = doneButton;
-    [doneButton release];
-    
-    UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
-    settingsNavController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    
-    [window.rootViewController presentModalViewController:settingsNavController animated:YES];
+    UIViewController *rootViewController = window.rootViewController;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        UISplitViewController *splitViewController = (UISplitViewController *)rootViewController;
+        UINavigationController *navController = (UINavigationController *)[splitViewController.viewControllers objectAtIndex:0];
+        [navController pushViewController:settingsViewController animated:YES];
+    } else {        
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismissSettingsView)];
+        settingsViewController.navigationItem.rightBarButtonItem = doneButton;
+        [doneButton release];
+        
+        UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+        settingsNavController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+
+        [window.rootViewController presentModalViewController:settingsNavController animated:YES];        
+        [settingsNavController release];
+    }
 
     [settingsViewController release];
-    [settingsNavController release];
 }
 
 - (void)dismissSettingsView {
@@ -336,6 +365,19 @@ static NSStringEncoding passwordEncodingValues[] = {
     
     actionSheet.delegate = self;
     [actionSheet showInView:window];
+    [actionSheet release];
+}
+
+- (void)showActionSheet:(UIActionSheet *)actionSheet fromBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated {
+    if (myActionSheet != nil) {
+        [myActionSheet dismissWithClickedButtonIndex:myActionSheet.cancelButtonIndex animated:NO];
+    }
+    
+    myActionSheet = [actionSheet retain];
+    myActionSheetDelegate = actionSheet.delegate;
+    
+    actionSheet.delegate = self;
+    [actionSheet showFromBarButtonItem:item animated:animated];
     [actionSheet release];
 }
 
