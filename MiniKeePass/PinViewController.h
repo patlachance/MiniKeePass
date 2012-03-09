@@ -16,10 +16,11 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "MKPViewController.h"
 
 @protocol PinViewControllerDelegate;
 
-@interface PinViewController : UIViewController <UITextFieldDelegate> {
+@interface PinViewController : MKPViewController <UITextFieldDelegate> {
     UITextField *textField;
     NSArray *pinTextFields;
     UILabel *textLabel;

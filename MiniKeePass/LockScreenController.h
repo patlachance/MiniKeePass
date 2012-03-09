@@ -16,9 +16,10 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "MKPViewController.h"
 #import "PinViewController.h"
 
-@interface LockScreenController : UIViewController <PinViewControllerDelegate> {
+@interface LockScreenController : MKPViewController <PinViewControllerDelegate> {
     PinViewController *pinViewController;
     MiniKeePassAppDelegate *appDelegate;
     CGRect visibleFrame;

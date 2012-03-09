@@ -16,6 +16,7 @@
  */
 
 #import "HelpViewController.h"
+#import "MKPViewController.h"
 
 @implementation HelpViewController
 
@@ -80,7 +81,7 @@ help_topic_t help_topics[] = {
     webView.backgroundColor = [UIColor whiteColor];
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
     
-    UIViewController *viewController = [[UIViewController alloc] init];
+    UIViewController *viewController = [[MKPViewController alloc] init];
     viewController.title = NSLocalizedString(title, nil);
     viewController.view = webView;
     [webView release];

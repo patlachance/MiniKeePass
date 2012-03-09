@@ -77,12 +77,4 @@
 //    self.masterPopoverController = nil;
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)orientation {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad || orientation == UIInterfaceOrientationPortrait) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
 @end

@@ -20,7 +20,7 @@
 #import "EditGroupViewController.h"
 #import "KdbLib.h"
 
-@interface GroupViewController : UITableViewController <UIActionSheetDelegate, UISearchDisplayDelegate, FormViewControllerDelegate> {
+@interface GroupViewController : MKPTableViewController <UIActionSheetDelegate, UISearchDisplayDelegate, FormViewControllerDelegate> {
     MiniKeePassAppDelegate *appDelegate;
     UISearchDisplayController *searchDisplayController;
     NSMutableArray *results;

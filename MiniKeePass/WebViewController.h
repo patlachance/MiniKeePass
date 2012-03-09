@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MKPViewController.h"
 
-@interface WebViewController : UIViewController <UISplitViewControllerDelegate> {
+@interface WebViewController : MKPViewController <UISplitViewControllerDelegate> {
     UIWebView *webView;
 }
 
