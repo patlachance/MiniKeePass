@@ -16,10 +16,11 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "MKPTableViewController.h"
 
 @protocol SelectionListViewControllerDelegate;
 
-@interface SelectionListViewController : UITableViewController {
+@interface SelectionListViewController : MKPTableViewController {
     NSArray *items;
     NSInteger selectedIndex;
     id<SelectionListViewControllerDelegate> delegate;

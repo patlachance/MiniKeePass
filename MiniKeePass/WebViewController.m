@@ -8,12 +8,15 @@
 //
 
 #import "WebViewController.h"
+#import "NumberPad.h"
 
 @interface WebViewController ()
 
 @end
 
 @implementation WebViewController
+
+@synthesize masterViewController;
 
 - (id)init {
     return [self initWithNibName:nil bundle:nil];
@@ -25,18 +28,33 @@
     if (self) {
         webView = [[UIWebView alloc] init];
         webView.scalesPageToFit = YES;
+        webView.delegate = self;
         self.view = webView;
+        
+        NumberPad *numPad = [[NumberPad alloc] initWithFrame:CGRectMake(100, 100, 600, 600)];
+        [self.view addSubview:numPad];
+        [numPad release];
 
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(backPressed)];
         UIBarButtonItem *forwardButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(forwardPressed)];
         if ([self.navigationItem respondsToSelector:@selector(setRightBarButtonItems:)]) {
             // 5.0+
             self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:forwardButton, backButton, nil];
-        }
+        } // TODO add these buttons to the bar in 4.0
         [backButton release];
         [forwardButton release];
+        
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.frame = CGRectMake(500, 0, 44, 44);
+        [self.navigationController.navigationBar addSubview:activityIndicator];        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     }
     return self;
+}
+
+- (void)keyboardWillShow:(id)sender {
+    
 }
 
 - (void)backPressed {
@@ -50,17 +68,13 @@
 - (void)loadUrl:(NSURL *)url {
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
-                                     
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [activityIndicator startAnimating];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [activityIndicator stopAnimating];
 }
 
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController

@@ -43,7 +43,7 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
 
-        UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 240, 96)];
+        UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 96)];
         [toolbar setBarStyle:UIBarStyleBlackTranslucent];
         
         PinTextField *pinTextField1 = [[PinTextField alloc] initWithFrame:CGRectMake(23, 22, 61, 52)];

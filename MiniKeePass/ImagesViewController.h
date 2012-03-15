@@ -16,10 +16,11 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "MKPViewController.h"
 
 @protocol ImagesViewControllerDelegate;
 
-@interface ImagesViewController : UIViewController {
+@interface ImagesViewController : MKPViewController {
     UIView *imagesView;
     NSMutableArray *imageViews;
     UIImageView *selectedImageView;

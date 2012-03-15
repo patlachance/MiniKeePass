@@ -193,8 +193,6 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    appDelegate = (MiniKeePassAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
     // Configure the cell
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         // Handle search results
@@ -254,11 +252,14 @@
             editGroupViewController.nameTextField.text = g.name;
             [editGroupViewController setSelectedImageIndex:g.image];
             
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:editGroupViewController];
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                [self.navigationController pushViewController:editGroupViewController animated:YES];
+            } else {
+                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:editGroupViewController];
             
-            [appDelegate.window.rootViewController presentModalViewController:navigationController animated:YES];
-            
-            [navigationController release];
+                [appDelegate.window.rootViewController presentModalViewController:navigationController animated:YES];                
+                [navigationController release];
+            }            
             [editGroupViewController release];
         }
     }
@@ -335,7 +336,11 @@
         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
     
-    [appDelegate.window.rootViewController dismissModalViewControllerAnimated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [appDelegate.window.rootViewController dismissModalViewControllerAnimated:YES];
+    }
 }
 
 - (void)exportFilePressed {
@@ -387,12 +392,16 @@
         editGroupViewController.delegate = self;
         editGroupViewController.nameTextField.text = g.name;
         [editGroupViewController setSelectedImageIndex:g.image];
-        
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:editGroupViewController];
-        
-        [appDelegate.window.rootViewController presentModalViewController:navigationController animated:YES];
-        
-        [navigationController release];
+                
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            [self.navigationController pushViewController:editGroupViewController animated:YES];
+        } else {
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:editGroupViewController];
+                
+            [appDelegate.window.rootViewController presentModalViewController:navigationController animated:YES];
+            
+            [navigationController release];
+        }
         [editGroupViewController release];
         
         // Notify the table of the new row

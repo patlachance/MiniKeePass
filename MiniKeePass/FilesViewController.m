@@ -360,11 +360,15 @@ enum {
     NewKdbViewController *newKdbViewController = [[NewKdbViewController alloc] initWithStyle:UITableViewStyleGrouped];
     newKdbViewController.delegate = self;
     
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newKdbViewController];
-    
-    [appDelegate.window.rootViewController presentModalViewController:navigationController animated:YES];
-    
-    [navigationController release];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.navigationController pushViewController:newKdbViewController animated:YES];
+    } else {
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newKdbViewController];
+        
+        [appDelegate.window.rootViewController presentModalViewController:navigationController animated:YES];
+        
+        [navigationController release];
+    }
     [newKdbViewController release];
 }
 
@@ -459,8 +463,12 @@ enum {
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
         }
     }
-    
-    [appDelegate.window.rootViewController dismissModalViewControllerAnimated:YES];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [appDelegate.window.rootViewController dismissModalViewControllerAnimated:YES];
+    }
 }
 
 @end

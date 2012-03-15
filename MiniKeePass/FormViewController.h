@@ -16,11 +16,12 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "MKPTableViewController.h"
 #import "InfoBar.h"
 
 @protocol FormViewControllerDelegate;
 
-@interface FormViewController : UITableViewController <UITextFieldDelegate> {
+@interface FormViewController : MKPTableViewController <UITextFieldDelegate> {
     NSArray *controls;
     NSString *headerTitle;
     NSString *footerTitle;

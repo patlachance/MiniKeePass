@@ -16,6 +16,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "MKPTableViewController.h"
 #import "SwitchCell.h"
 
 #define CHARACTER_SET_UPPER_CASE (1 << 0)
@@ -29,7 +30,7 @@
 
 #define CHARACTER_SET_DEFAULT    (CHARACTER_SET_UPPER_CASE | CHARACTER_SET_LOWER_CASE | CHARACTER_SET_DIGITS)
 
-@interface CharacterSetsViewController : UITableViewController {
+@interface CharacterSetsViewController : MKPTableViewController {
     SwitchCell *upperCaseSwitchCell;
     SwitchCell *lowerCaseSwitchCell;
     SwitchCell *digitsSwitchCell;

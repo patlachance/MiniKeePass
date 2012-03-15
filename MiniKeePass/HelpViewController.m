@@ -81,7 +81,7 @@ help_topic_t help_topics[] = {
     webView.backgroundColor = [UIColor whiteColor];
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
     
-    UIViewController *viewController = [[MKPViewController alloc] init];
+    MKPViewController *viewController = [[MKPViewController alloc] init];
     viewController.title = NSLocalizedString(title, nil);
     viewController.view = webView;
     [webView release];

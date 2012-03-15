@@ -16,8 +16,9 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "MKPTableViewController.h"
 
-@interface HelpViewController : UITableViewController {
+@interface HelpViewController : MKPTableViewController {
 }
 
 @end

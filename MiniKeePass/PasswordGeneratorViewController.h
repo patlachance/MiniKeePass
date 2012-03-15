@@ -17,11 +17,12 @@
 
 #import <UIKit/UIKit.h>
 #import "LengthCell.h"
+#import "MKPTableViewController.h"
 #import "CharacterSetsViewController.h"
 
 @protocol PasswordGeneratorDelegate;
 
-@interface PasswordGeneratorViewController : UITableViewController <LengthCellDelegate> {
+@interface PasswordGeneratorViewController : MKPTableViewController <LengthCellDelegate> {
     LengthCell *lengthCell;
     UITableViewCell *characterSetsCell;
     UITableViewCell *passwordCell;

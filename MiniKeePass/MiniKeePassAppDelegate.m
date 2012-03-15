@@ -85,6 +85,7 @@ static NSStringEncoding passwordEncodingValues[] = {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         webViewController = [[WebViewController alloc] init];
         [webViewController loadUrl:[NSURL URLWithString:@"http://minikeepass.github.com"]];
+        webViewController.masterViewController = navigationController;
         
         UINavigationController *iPadNavController = [[UINavigationController alloc] initWithRootViewController:webViewController];
 
@@ -372,7 +373,7 @@ static NSStringEncoding passwordEncodingValues[] = {
     if (myActionSheet != nil) {
         [myActionSheet dismissWithClickedButtonIndex:myActionSheet.cancelButtonIndex animated:NO];
     }
-    
+        
     myActionSheet = [actionSheet retain];
     myActionSheetDelegate = actionSheet.delegate;
     

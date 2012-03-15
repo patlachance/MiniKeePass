@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "MKPViewController.h"
 
-@interface WebViewController : MKPViewController <UISplitViewControllerDelegate> {
+@interface WebViewController : MKPViewController <UISplitViewControllerDelegate, UIWebViewDelegate> {
     UIWebView *webView;
+    UIActivityIndicatorView *activityIndicator;
 }
 
 - (void)loadUrl:(NSURL *)url;
+
+@property (nonatomic, retain) UIViewController *masterViewController;
 
 @end
