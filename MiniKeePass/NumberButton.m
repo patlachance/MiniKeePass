@@ -49,39 +49,9 @@
         [primaryLabel release];
         [subLabel release];
         
-        
-        [self addTarget:self action:@selector(touchDown) forControlEvents:UIControlEventTouchDown];
-        [self addTarget:self action:@selector(touchUpInside) forControlEvents:UIControlEventTouchUpInside];
-        [self addTarget:self action:@selector(dragEnter) forControlEvents:UIControlEventTouchDragEnter];
-        [self addTarget:self action:@selector(dragExit) forControlEvents:UIControlEventTouchDragExit];
+        self.showsTouchWhenHighlighted = YES;
     }
     return self;
-}
-
-- (void)invertGradient {
-    CABasicAnimation *animation = [CABasicAnimation animation];
-    animation.fromValue = [NSArray arrayWithObjects:(id)[UIColor darkGrayColor].CGColor, (id)[UIColor blackColor].CGColor, nil];
-    animation.toValue = [NSArray arrayWithObjects:(id)[UIColor blackColor].CGColor, (id)[UIColor darkGrayColor].CGColor, nil];
-    animation.duration = 0.1;
-    [gradient addAnimation:animation forKey:@"animation"];
-}
-
-- (void)touchDown {
-    NSLog(@"Touch Down");
-    [self invertGradient];
-}
-
-- (void)touchUpInside {
-    NSLog(@"Touch Up Inside");
-    [self invertGradient];
-}
-
-- (void)dragEnter {
-    NSLog(@"Drag Enter");
-}
-
-- (void)dragExit {
-    NSLog(@"Drag Exit");    
 }
 
 @end

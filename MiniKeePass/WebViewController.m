@@ -8,11 +8,7 @@
 //
 
 #import "WebViewController.h"
-#import "NumberPad.h"
-
-@interface WebViewController ()
-
-@end
+#import <QuartzCore/QuartzCore.h>
 
 @implementation WebViewController
 
@@ -31,10 +27,6 @@
         webView.delegate = self;
         self.view = webView;
         
-        NumberPad *numPad = [[NumberPad alloc] initWithFrame:CGRectMake(100, 100, 600, 600)];
-        [self.view addSubview:numPad];
-        [numPad release];
-
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(backPressed)];
         UIBarButtonItem *forwardButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(forwardPressed)];
         if ([self.navigationItem respondsToSelector:@selector(setRightBarButtonItems:)]) {
@@ -48,7 +40,7 @@
         activityIndicator.frame = CGRectMake(500, 0, 44, 44);
         [self.navigationController.navigationBar addSubview:activityIndicator];        
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];        
     }
     return self;
 }

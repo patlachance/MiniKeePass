@@ -30,14 +30,16 @@ static NSInteger deleteOnFailureAttemptsValues[] = {3, 5, 10, 15};
 
 - (id)init {
     self = [super init];
-    if (self) {
-
-        visibleFrame = CGRectZero;
-        offScreenFrame = CGRectOffset(visibleFrame, 0, -95);
-        
+    if (self) {        
         pinViewController = [[PinViewController alloc] init];
         pinViewController.delegate = self;
-        pinViewController.view.frame = offScreenFrame;
+
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            visibleFrame = CGRectZero;
+            offScreenFrame = CGRectOffset(visibleFrame, 0, -95);
+            pinViewController.view.frame = offScreenFrame;
+        }
+
         [self.view addSubview:pinViewController.view];
         
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"splash"]];
@@ -88,10 +90,12 @@ static NSInteger deleteOnFailureAttemptsValues[] = {3, 5, 10, 15};
 
     pinViewController.textLabel.text = NSLocalizedString(@"Enter your PIN to unlock", nil);
     
-    [pinViewController becomeFirstResponder];
-    [UIView animateWithDuration:DURATION animations:^{
-        pinViewController.view.frame = visibleFrame;
-    }];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [pinViewController becomeFirstResponder];
+        [UIView animateWithDuration:DURATION animations:^{
+            pinViewController.view.frame = visibleFrame;
+        }];        
+    }
 }
 
 - (void)unlock {

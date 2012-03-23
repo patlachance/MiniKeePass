@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NumberButton.h"
 
-@interface NumberPad : UIView
+@protocol NumberPadDelegate;
 
+@interface NumberPad : UIView {
+    id<NumberPadDelegate> delegate;    
+}
+
+@property (nonatomic, retain) id<NumberPadDelegate> delegate;
+
+@end
+
+@protocol NumberPadDelegate <NSObject>
+- (void)numberPad:(NumberPad *)numberPad buttonPressed:(NumberButton *)button;
 @end

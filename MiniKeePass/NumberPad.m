@@ -7,7 +7,6 @@
 //
 
 #import "NumberPad.h"
-#import "NumberButton.h"
 #import "PinTextField.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -17,6 +16,8 @@
 #define Y_OFFSET 56.0f
 
 @implementation NumberPad
+
+@synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -72,62 +73,72 @@
         CGFloat y = Y_ORIGIN + 22;
         
         NumberButton *button1 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
+        [button1 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         button1.primaryLabel.text = @"1";
         button1.subLabel.text = @"";
         x += X_OFFSET;
         
         NumberButton *button2 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
+        [button2 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         button2.primaryLabel.text = @"2";
         button2.subLabel.text = @"ABC";
         x += X_OFFSET;
         
         NumberButton *button3 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
+        [button3 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         button3.primaryLabel.text = @"3";
         button3.subLabel.text = @"DEF";
         x = X_ORIGIN;
         y += Y_OFFSET;
         
         NumberButton *button4 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
+        [button4 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         button4.primaryLabel.text = @"4";
         button4.subLabel.text = @"GHI";
         x += X_OFFSET;
         
         NumberButton *button5 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
+        [button5 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         button5.primaryLabel.text = @"5";
         button5.subLabel.text = @"JKL";
         x += X_OFFSET;
         
         NumberButton *button6 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
+        [button6 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         button6.primaryLabel.text = @"6";
         button6.subLabel.text = @"MNO";
         x = X_ORIGIN;
         y += Y_OFFSET;
         
         NumberButton *button7 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
+        [button7 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         button7.primaryLabel.text = @"7";
         button7.subLabel.text = @"PQRS";
         x += X_OFFSET;
         
         NumberButton *button8 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
+        [button8 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         button8.primaryLabel.text = @"8";
         button8.subLabel.text = @"TUV";
         x += X_OFFSET;
         
         NumberButton *button9 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
+        [button9 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         button9.primaryLabel.text = @"9";
         button9.subLabel.text = @"WXYZ";
         x = X_ORIGIN;
         y += Y_OFFSET;
         
         NumberButton *button10 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
+        [button10 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         x += X_OFFSET;
         
         NumberButton *button11 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
+        [button11 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         x += X_OFFSET;
         
         NumberButton *button12 = [[NumberButton alloc] initWithFrame:CGRectMake(x, y, 0, 0)];
-        
-        
+        [button12 addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:button1];
         [self addSubview:button2];
@@ -155,6 +166,12 @@
         [button12 release];
     }
     return self;
+}
+
+- (void)buttonPressed:(NumberButton *)button {
+    if ([delegate respondsToSelector:@selector(numberPad:buttonPressed:)]) {
+        [delegate numberPad:self buttonPressed:button];
+    }
 }
 
 @end

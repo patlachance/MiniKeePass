@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		520596C0151B7D8F0023F3A7 /* iPadPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 520596BF151B7D8F0023F3A7 /* iPadPinViewController.m */; };
+		520596C3151B7DAA0023F3A7 /* iPhonePinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 520596C2151B7DAA0023F3A7 /* iPhonePinViewController.m */; };
 		522F5E201509077E007E69A3 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 522F5E1F1509077E007E69A3 /* WebViewController.m */; };
 		5235D58314F8160900B0C991 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 5235D58214F8160900B0C991 /* splash.png */; };
 		5235D58514F8176300B0C991 /* splash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5235D58414F8176300B0C991 /* splash@2x.png */; };
@@ -329,6 +331,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		520596BE151B7D8F0023F3A7 /* iPadPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPadPinViewController.h; sourceTree = "<group>"; };
+		520596BF151B7D8F0023F3A7 /* iPadPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadPinViewController.m; sourceTree = "<group>"; };
+		520596C1151B7DAA0023F3A7 /* iPhonePinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhonePinViewController.h; sourceTree = "<group>"; };
+		520596C2151B7DAA0023F3A7 /* iPhonePinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPhonePinViewController.m; sourceTree = "<group>"; };
 		522F5E1E1509077D007E69A3 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		522F5E1F1509077E007E69A3 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		5235D58214F8160900B0C991 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
@@ -814,6 +820,10 @@
 				529CC280150EF268008BF4EC /* NumberButton.m */,
 				528DBF19150F8A69008C786D /* NumberPad.h */,
 				528DBF1A150F8A69008C786D /* NumberPad.m */,
+				520596BE151B7D8F0023F3A7 /* iPadPinViewController.h */,
+				520596BF151B7D8F0023F3A7 /* iPadPinViewController.m */,
+				520596C1151B7DAA0023F3A7 /* iPhonePinViewController.h */,
+				520596C2151B7DAA0023F3A7 /* iPhonePinViewController.m */,
 			);
 			name = "Lock Screen";
 			sourceTree = "<group>";
@@ -1708,6 +1718,8 @@
 				529CC27A150A5251008BF4EC /* MKPTableViewController.m in Sources */,
 				529CC281150EF268008BF4EC /* NumberButton.m in Sources */,
 				528DBF1B150F8A69008C786D /* NumberPad.m in Sources */,
+				520596C0151B7D8F0023F3A7 /* iPadPinViewController.m in Sources */,
+				520596C3151B7DAA0023F3A7 /* iPhonePinViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

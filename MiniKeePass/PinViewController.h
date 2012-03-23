@@ -17,13 +17,15 @@
 
 #import <UIKit/UIKit.h>
 #import "MKPViewController.h"
+#import "NumberPad.h"
 
 @protocol PinViewControllerDelegate;
 
-@interface PinViewController : MKPViewController <UITextFieldDelegate> {
+@interface PinViewController : MKPViewController <UITextFieldDelegate, NumberPadDelegate> {
     UITextField *textField;
     NSArray *pinTextFields;
     UILabel *textLabel;
+    NumberPad *numPad;
     id<PinViewControllerDelegate> delegate;
 }
 

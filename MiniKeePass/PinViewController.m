@@ -42,7 +42,7 @@
         [self.view addSubview:textField];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
-
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 96)];
         [toolbar setBarStyle:UIBarStyleBlackTranslucent];
         
@@ -82,6 +82,7 @@
         
         [self.view addSubview:topBar];
         [topBar release];
+        }
     }
     
     return self;
@@ -93,6 +94,56 @@
     [textLabel release];
     [delegate release];
     [super dealloc];
+}
+
+- (void)animateView:(UIView *)view throughScaleFactors:(NSArray *)factors usingDurations:(NSArray *)durations {
+    void (^completion)(BOOL done);
+    
+    if ([factors count] == 1) {
+        completion = nil;
+    } else {
+        completion = ^(BOOL done) {
+            NSArray *newFactors = [factors subarrayWithRange:NSMakeRange(1, [factors count] - 1)];
+            NSArray *newDurations = [durations subarrayWithRange:NSMakeRange(1, [durations count] - 1)];
+            
+            [self animateView:view throughScaleFactors:newFactors usingDurations:newDurations];
+        };
+    }
+    
+    
+    NSNumber *scale = (NSNumber *)[factors objectAtIndex:0];
+    NSNumber *duration = (NSNumber *)[durations objectAtIndex:0];
+    
+    [UIView animateWithDuration:duration.floatValue 
+                     animations:^{
+                         view.transform = CGAffineTransformMakeScale(scale.floatValue, scale.floatValue);
+                     }
+                     completion:completion];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    numPad = [[NumberPad alloc] initWithFrame:CGRectZero];
+    numPad.delegate = self;
+    numPad.center = self.view.center;
+    numPad.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    [self.view addSubview:numPad];
+    UIView *view = numPad;
+    
+    NSMutableArray *factors = [NSMutableArray arrayWithCapacity:4];
+    [factors addObject:[NSNumber numberWithFloat:1.10]];
+    [factors addObject:[NSNumber numberWithFloat:0.95]];
+    [factors addObject:[NSNumber numberWithFloat:1.00]];
+    
+    NSMutableArray *durations = [NSMutableArray arrayWithCapacity:4];
+    [durations addObject:[NSNumber numberWithFloat:0.20]];
+    [durations addObject:[NSNumber numberWithFloat:0.20]];
+    [durations addObject:[NSNumber numberWithFloat:0.20]];
+    
+    [self animateView:view throughScaleFactors:factors usingDurations:durations];
+}
+
+- (void)numberPad:(NumberPad *)numberPad buttonPressed:(NumberButton *)button {
+    textField.text = [textField.text stringByAppendingString:button.primaryLabel.text];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

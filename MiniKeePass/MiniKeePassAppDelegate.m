@@ -138,6 +138,7 @@ static NSStringEncoding passwordEncodingValues[] = {
 
 - (void)applicationWillResignActive:(UIApplication *)application {    
     [self dismissActionSheet];
+    [self hidePopoverView];
     if (!self.locked) {
         NSDate *currentTime = [NSDate date];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -385,6 +386,12 @@ static NSStringEncoding passwordEncodingValues[] = {
 - (void)dismissActionSheet {
     if (myActionSheet != nil) {
         [myActionSheet dismissWithClickedButtonIndex:myActionSheet.cancelButtonIndex animated:YES];
+    }
+}
+
+- (void)hidePopoverView {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        
     }
 }
 
