@@ -15,24 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#import <UIKit/UIKit.h>
-#import "MiniKeePassAppDelegate.h"
-#import "EditGroupViewController.h"
-#import "KdbLib.h"
+#import <Foundation/Foundation.h>
+#import "OutputStream.h"
 
-@interface GroupViewController : MKPTableViewController <UIActionSheetDelegate, UISearchDisplayDelegate, FormViewControllerDelegate> {
-    MiniKeePassAppDelegate *appDelegate;
-    UISearchDisplayController *searchDisplayController;
-    NSMutableArray *results;
-    KdbGroup *group;
-    NSString *pushedKdbTitle;
-    BOOL sortingEnabled;
-    NSMutableArray *groupsArray;
-    NSMutableArray *enteriesArray;
-    NSComparisonResult (^groupComparator) (id obj1, id obj2);
-    NSComparisonResult (^entryComparator) (id obj1, id obj2);
+@interface FileOutputStream : OutputStream {
+    int fd;
 }
 
-@property (nonatomic, assign) KdbGroup *group;
+- (id)initWithFilename:(NSString*)filename;
 
 @end

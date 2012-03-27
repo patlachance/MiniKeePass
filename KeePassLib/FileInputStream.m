@@ -33,6 +33,7 @@
 }
 
 - (void)dealloc {
+    [self close];
     [super dealloc];
 }
 
@@ -41,7 +42,11 @@
 }
 
 - (void)close {
+    if (fd == -1) {
+        return;
+    }
     close(fd);
+    fd = -1;
 }
 
 @end
