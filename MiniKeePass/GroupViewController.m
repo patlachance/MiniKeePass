@@ -44,7 +44,7 @@
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStylePlain target:appDelegate action:@selector(showSettingsView)];
     settingsButton.imageInsets = UIEdgeInsetsMake(2, 0, -2, 0);
     UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportFilePressed)];
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPressed)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPressed:event:)];
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
     self.toolbarItems = [NSArray arrayWithObjects:settingsButton, spacer, actionButton, spacer, addButton, nil];
@@ -353,7 +353,7 @@
     }
 }
 
-- (void)addPressed {
+- (void)addPressed:(UIBarButtonItem*)sender event:(UIEvent*)event {
     UIActionSheet *actionSheet;
     if (group.canAddEntries) {
         actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Add", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Group", nil), NSLocalizedString(@"Entry", nil), nil];
@@ -362,13 +362,7 @@
     }
     
     actionSheet.delegate = self;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        UIBarButtonItem *buttonItem = [self.toolbarItems objectAtIndex:4];
-        [appDelegate showActionSheet:actionSheet fromBarButtonItem:buttonItem animated:YES];
-    } else {
-        [appDelegate showActionSheet:actionSheet];        
-    }
-    
+    [appDelegate showActionSheet:actionSheet];        
     [actionSheet release];    
 }
 

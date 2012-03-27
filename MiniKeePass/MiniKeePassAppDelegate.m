@@ -370,19 +370,6 @@ static NSStringEncoding passwordEncodingValues[] = {
     [actionSheet release];
 }
 
-- (void)showActionSheet:(UIActionSheet *)actionSheet fromBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated {
-    if (myActionSheet != nil) {
-        [myActionSheet dismissWithClickedButtonIndex:myActionSheet.cancelButtonIndex animated:NO];
-    }
-        
-    myActionSheet = [actionSheet retain];
-    myActionSheetDelegate = actionSheet.delegate;
-    
-    actionSheet.delegate = self;
-    [actionSheet showFromBarButtonItem:item animated:animated];
-    [actionSheet release];
-}
-
 - (void)dismissActionSheet {
     if (myActionSheet != nil) {
         [myActionSheet dismissWithClickedButtonIndex:myActionSheet.cancelButtonIndex animated:YES];

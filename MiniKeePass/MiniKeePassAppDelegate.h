@@ -51,7 +51,6 @@
 - (void)showSettingsView;
 - (void)dismissSettingsView;
 - (void)showActionSheet:(UIActionSheet *)actionSheet;
-- (void)showActionSheet:(UIActionSheet *)actionSheet fromBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated;
 - (void)dismissActionSheet;
 
 @end
