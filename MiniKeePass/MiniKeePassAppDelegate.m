@@ -84,11 +84,14 @@ static NSStringEncoding passwordEncodingValues[] = {
     UISplitViewController *splitViewController;
     webViewController = nil;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        NSString *urlString = @"http://minikeepass.github.com";
+        
         webViewController = [[WebViewController alloc] init];
-        [webViewController loadUrl:[NSURL URLWithString:@"http://minikeepass.github.com"]];
         webViewController.masterViewController = navigationController;
+        [webViewController loadUrl:[NSURL URLWithString:urlString]];
         
         UINavigationController *iPadNavController = [[UINavigationController alloc] initWithRootViewController:webViewController];
+        iPadNavController.toolbarHidden = NO;
 
         splitViewController = [[UISplitViewController alloc] init];
         splitViewController.delegate = webViewController;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52051E8A1522168000D217B8 /* UIWebViewSearch.js in Resources */ = {isa = PBXBuildFile; fileRef = 52051E87152215CC00D217B8 /* UIWebViewSearch.js */; };
 		520596C0151B7D8F0023F3A7 /* iPadPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 520596BF151B7D8F0023F3A7 /* iPadPinViewController.m */; };
 		520596C3151B7DAA0023F3A7 /* iPhonePinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 520596C2151B7DAA0023F3A7 /* iPhonePinViewController.m */; };
 		522F5E201509077E007E69A3 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 522F5E1F1509077E007E69A3 /* WebViewController.m */; };
@@ -332,6 +333,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		52051E87152215CC00D217B8 /* UIWebViewSearch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = UIWebViewSearch.js; sourceTree = "<group>"; };
 		520596BE151B7D8F0023F3A7 /* iPadPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPadPinViewController.h; sourceTree = "<group>"; };
 		520596BF151B7D8F0023F3A7 /* iPadPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iPadPinViewController.m; sourceTree = "<group>"; };
 		520596C1151B7DAA0023F3A7 /* iPhonePinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iPhonePinViewController.h; sourceTree = "<group>"; };
@@ -1195,6 +1197,7 @@
 		689D041413A42B85005EBD36 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				52051E87152215CC00D217B8 /* UIWebViewSearch.js */,
 				529708AD14FEEFD3003547FB /* Andale Mono.ttf */,
 				689D021313A42B63005EBD36 /* help */,
 				689D021A13A42B63005EBD36 /* images */,
@@ -1438,6 +1441,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52051E8A1522168000D217B8 /* UIWebViewSearch.js in Resources */,
 				529708B014FEF149003547FB /* Andale Mono.ttf in Resources */,
 				689D032C13A42B63005EBD36 /* Default.png in Resources */,
 				689D032E13A42B63005EBD36 /* Default@2x.png in Resources */,
