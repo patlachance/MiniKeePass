@@ -143,14 +143,11 @@ static NSStringEncoding passwordEncodingValues[] = {
 - (void)applicationWillResignActive:(UIApplication *)application {    
     [self dismissActionSheet];
     [self hidePopoverView];
+    [LockScreenController present];
     if (!self.locked) {
         NSDate *currentTime = [NSDate date];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setValue:currentTime forKey:@"exitTime"];
-        
-        if ([userDefaults boolForKey:@"pinEnabled"]) {
-            [LockScreenController present];
-        }
+        [userDefaults setValue:currentTime forKey:@"exitTime"];        
     }
 }
 
