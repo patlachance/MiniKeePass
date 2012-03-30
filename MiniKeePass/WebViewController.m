@@ -40,14 +40,18 @@
         [forwardButton release];
         [reloadButton release];
         [spacer release];
-        
-//        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//        activityIndicator.frame = CGRectMake(500, 0, 44, 44);
-//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];        
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        [defaultCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [defaultCenter addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     }
     return self;
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    if ([popoverController isPopoverVisible]) {
+        [popoverController dismissPopoverAnimated:NO];
+    }
 }
 
 - (void)javascript {
@@ -116,18 +120,21 @@
     }
 }
 
-- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
+- (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)newPopoverController
 {
     barButtonItem.title = NSLocalizedString(@"Passwords", nil);
     [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
-//    self.masterPopoverController = popoverController;
+    popoverController = nil;
+}
+
+- (void)splitViewController:(UISplitViewController *)splitController popoverController:(UIPopoverController *)newPopoverController willPresentViewController:(UIViewController *)aViewController {
+    popoverController = newPopoverController;    
 }
 
 - (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
-//    self.masterPopoverController = nil;
 }
 
 @end

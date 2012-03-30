@@ -11,6 +11,7 @@
 
 @interface WebViewController : MKPViewController <UISplitViewControllerDelegate, UIWebViewDelegate> {
     UIWebView *webView;
+    UIPopoverController *popoverController;
     UIActivityIndicatorView *activityIndicator;
 }
 

@@ -90,12 +90,12 @@ static NSInteger deleteOnFailureAttemptsValues[] = {3, 5, 10, 15};
 
     pinViewController.textLabel.text = NSLocalizedString(@"Enter your PIN to unlock", nil);
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+//    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [pinViewController becomeFirstResponder];
         [UIView animateWithDuration:DURATION animations:^{
             pinViewController.view.frame = visibleFrame;
         }];        
-    }
+  //  }
 }
 
 - (void)unlock {
