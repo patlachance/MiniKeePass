@@ -28,7 +28,7 @@
         self.view = webView;
         
         UIBarButtonItem *javascriptButton = [[UIBarButtonItem alloc] initWithTitle:@"javascript" style:UIBarButtonItemStyleBordered target:self action:@selector(javascript)];
-        self.navigationItem.rightBarButtonItem = javascriptButton;
+//        self.navigationItem.rightBarButtonItem = javascriptButton;
         [javascriptButton release];
         
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(backPressed)];
