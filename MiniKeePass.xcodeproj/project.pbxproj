@@ -22,6 +22,8 @@
 		52709ABA150141D9008AB6C9 /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52709AB8150141D9008AB6C9 /* info@2x.png */; };
 		528DBF1B150F8A69008C786D /* NumberPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 528DBF1A150F8A69008C786D /* NumberPad.m */; };
 		528DBF1E150F92E3008C786D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528DBF1D150F92E3008C786D /* QuartzCore.framework */; };
+		52920FBE152B465500FCFD30 /* SSToolkit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 52920FBC152B465500FCFD30 /* SSToolkit.bundle */; };
+		52920FBF152B465500FCFD30 /* SSToolkit-Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52920FBD152B465500FCFD30 /* SSToolkit-Framework.framework */; };
 		529708AE14FEEFD3003547FB /* Andale Mono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529708AD14FEEFD3003547FB /* Andale Mono.ttf */; };
 		529708B014FEF149003547FB /* Andale Mono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529708AD14FEEFD3003547FB /* Andale Mono.ttf */; };
 		529CC277150A5100008BF4EC /* MKPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 529CC276150A50FE008BF4EC /* MKPViewController.m */; };
@@ -356,6 +358,8 @@
 		528DBF19150F8A69008C786D /* NumberPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberPad.h; sourceTree = "<group>"; };
 		528DBF1A150F8A69008C786D /* NumberPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberPad.m; sourceTree = "<group>"; };
 		528DBF1D150F92E3008C786D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		52920FBC152B465500FCFD30 /* SSToolkit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SSToolkit.bundle; sourceTree = "<group>"; };
+		52920FBD152B465500FCFD30 /* SSToolkit-Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "SSToolkit-Framework.framework"; sourceTree = "<group>"; };
 		529708AD14FEEFD3003547FB /* Andale Mono.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Andale Mono.ttf"; sourceTree = "<group>"; };
 		529BED9E14D7CD8600618250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		529BED9F14D7CD9700618250 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -763,6 +767,7 @@
 				689D000D13A42765005EBD36 /* AudioToolbox.framework in Frameworks */,
 				689D001113A4277E005EBD36 /* libxml2.dylib in Frameworks */,
 				689D001313A42784005EBD36 /* libz.dylib in Frameworks */,
+				52920FBF152B465500FCFD30 /* SSToolkit-Framework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,6 +852,23 @@
 				52491D0B14D8F3FB00F8CBC8 /* de-safariemail.html */,
 			);
 			path = de;
+			sourceTree = "<group>";
+		};
+		52920FBA152B465500FCFD30 /* SSToolkit-Framework.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				52920FBB152B465500FCFD30 /* Resources */,
+				52920FBD152B465500FCFD30 /* SSToolkit-Framework.framework */,
+			);
+			path = "SSToolkit-Framework.embeddedframework";
+			sourceTree = "<group>";
+		};
+		52920FBB152B465500FCFD30 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				52920FBC152B465500FCFD30 /* SSToolkit.bundle */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		689D021313A42B63005EBD36 /* help */ = {
@@ -1280,6 +1302,7 @@
 		689DFFD813A4273F005EBD36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				52920FBA152B465500FCFD30 /* SSToolkit-Framework.embeddedframework */,
 				528DBF1D150F92E3008C786D /* QuartzCore.framework */,
 				689DFFD913A4273F005EBD36 /* UIKit.framework */,
 				689DFFDB13A4273F005EBD36 /* Foundation.framework */,
@@ -1620,6 +1643,7 @@
 				5235D58514F8176300B0C991 /* splash@2x.png in Resources */,
 				52709AB9150141D9008AB6C9 /* info.png in Resources */,
 				52709ABA150141D9008AB6C9 /* info@2x.png in Resources */,
+				52920FBE152B465500FCFD30 /* SSToolkit.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1866,6 +1890,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SSToolkit-Framework.embeddedframework\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MiniKeePass/MiniKeePass-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1957,6 +1985,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SSToolkit-Framework.embeddedframework\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MiniKeePass/MiniKeePass-Prefix.pch";
@@ -1976,6 +2008,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SSToolkit-Framework.embeddedframework\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MiniKeePass/MiniKeePass-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;

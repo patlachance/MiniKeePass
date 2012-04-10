@@ -22,7 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        webView = [[UIWebView alloc] init];
+        webView = [[SSWebView alloc] init];
         webView.scalesPageToFit = YES;
         webView.delegate = self;
         self.view = webView;
@@ -44,6 +44,13 @@
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [defaultCenter addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+        
+        UIToolbar *topBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44.0f)];
+        addressBarTextField = [[SSAddressBarTextField alloc] initWithFrame:CGRectMake(10, 50, 200, 31.0f)];
+        addressBarTextField.delegate = self;
+        [topBar addSubview:addressBarTextField];
+        
+        [self.view addSubview:topBar];
     }
     return self;
 }
@@ -52,6 +59,15 @@
     if ([popoverController isPopoverVisible]) {
         [popoverController dismissPopoverAnimated:NO];
     }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [webView loadURLString:textField.text];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [addressBarTextField resignFirstResponder];
+    return YES;
 }
 
 - (void)javascript {
@@ -95,31 +111,6 @@
     [webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)currentWebView {
-    self.title = currentWebView.request.URL.absoluteString;
-    [self activityIndicator:YES];
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)currentWebView {
-    [self activityIndicator:NO];
-}
-
-// FIXME This needs some better name; possibly two methods
-- (void)activityIndicator:(BOOL)more {
-    static int counter = 0;
-    if (more) {
-        counter++;
-    } else {
-        counter = counter > 0 ? counter - 1 : 0;
-    }
-    
-    if (counter > 0) {
-        [activityIndicator startAnimating];
-    } else {
-        [activityIndicator stopAnimating];
-    }
-}
-
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)newPopoverController
 {
     barButtonItem.title = NSLocalizedString(@"Passwords", nil);
@@ -135,6 +126,40 @@
 {
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+}
+
+#pragma mark - SSWebViewDelegate
+
+- (void)webViewDidStartLoadingPage:(SSWebView *)aWebView {
+	addressBarTextField.loading = YES;
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+	
+	NSString *urlString = [[[webView lastRequest] mainDocumentURL] absoluteString];
+	
+	static NSRegularExpression *regularExpression = nil;
+	if (!regularExpression) {
+		regularExpression = [[NSRegularExpression alloc] initWithPattern:@"^https?://" options:NSRegularExpressionCaseInsensitive error:nil];
+	}
+	
+	NSString *addressBarUrlString = [regularExpression stringByReplacingMatchesInString:urlString options:0 range:NSMakeRange(0, [urlString length]) withTemplate:@""];
+	addressBarTextField.text = addressBarUrlString;
+}
+
+
+- (void)webViewDidFinishLoadingPage:(SSWebView *)aWebView {
+	addressBarTextField.loading = NO;
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	
+	NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+	if (title) {
+//		_titleLabel.text = title;
+	}
+}
+
+
+- (void)webView:(SSWebView *)aWebView didFailLoadWithError:(NSError *)error {
+    addressBarTextField.loading = NO;
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 @end

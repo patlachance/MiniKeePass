@@ -90,12 +90,9 @@ static NSStringEncoding passwordEncodingValues[] = {
         webViewController.masterViewController = navigationController;
         [webViewController loadUrl:[NSURL URLWithString:urlString]];
         
-        UINavigationController *iPadNavController = [[UINavigationController alloc] initWithRootViewController:webViewController];
-        iPadNavController.toolbarHidden = NO;
-
         splitViewController = [[UISplitViewController alloc] init];
         splitViewController.delegate = webViewController;
-        splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, iPadNavController, nil];
+        splitViewController.viewControllers = [NSArray arrayWithObjects:navigationController, webViewController, nil];
         if ([splitViewController respondsToSelector:@selector(setPresentsWithGesture:)]) {
             // 5.1+
             [splitViewController setPresentsWithGesture:YES];
