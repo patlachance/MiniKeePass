@@ -10,7 +10,12 @@
 #import "WebViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation WebViewController
+#define ADDRESSBAR_HEIGHT 44.0f
+
+@implementation WebViewController {
+    UIToolbar *topBar;
+    NSMutableArray *topBarItems;
+}
 
 @synthesize masterViewController;
 
@@ -25,32 +30,43 @@
         webView = [[SSWebView alloc] init];
         webView.scalesPageToFit = YES;
         webView.delegate = self;
-        self.view = webView;
-        
-        UIBarButtonItem *javascriptButton = [[UIBarButtonItem alloc] initWithTitle:@"javascript" style:UIBarButtonItemStyleBordered target:self action:@selector(javascript)];
-//        self.navigationItem.rightBarButtonItem = javascriptButton;
-        [javascriptButton release];
         
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(backPressed)];
         UIBarButtonItem *forwardButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(forwardPressed)];
         UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadPressed)];
         UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-        self.toolbarItems = [NSArray arrayWithObjects:backButton, spacer, reloadButton, spacer, forwardButton, nil];
-        [backButton release];
-        [forwardButton release];
-        [reloadButton release];
-        [spacer release];
+        
+        CGSize size = self.view.frame.size;
+        
+        topBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, size.width, ADDRESSBAR_HEIGHT)];
+        topBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        addressBarTextField = [[SSAddressBarTextField alloc] initWithFrame:CGRectMake(0, 0, size.width - 30, 31.0f)];
+        addressBarTextField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        addressBarTextField.delegate = self;
+        UIBarButtonItem *addressBarItem = [[UIBarButtonItem alloc] initWithCustomView:addressBarTextField];
+        addressBarItem.width = 500;
 
+        topBarItems = [[NSMutableArray alloc] initWithObjects:addressBarItem, nil];
+        topBar.items = topBarItems;
+        [addressBarItem release];
+        
+        [self.view addSubview:topBar];
+        
+        UIToolbar *bottomBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, size.height - ADDRESSBAR_HEIGHT, size.width, ADDRESSBAR_HEIGHT)];
+        bottomBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+        [self.view addSubview:bottomBar];
+
+        bottomBar.items = [NSArray arrayWithObjects:backButton, spacer, reloadButton, spacer, forwardButton, nil];
+        
+        UIWebView *tempWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, ADDRESSBAR_HEIGHT, size.width, size.height - (2 * ADDRESSBAR_HEIGHT))];
+        tempWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        tempWebView.scalesPageToFit = YES;
+        [self.view addSubview:tempWebView];
+        
+        
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [defaultCenter addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
-        
-        UIToolbar *topBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44.0f)];
-        addressBarTextField = [[SSAddressBarTextField alloc] initWithFrame:CGRectMake(10, 50, 200, 31.0f)];
-        addressBarTextField.delegate = self;
-        [topBar addSubview:addressBarTextField];
-        
-        [self.view addSubview:topBar];
     }
     return self;
 }
@@ -114,7 +130,8 @@
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)newPopoverController
 {
     barButtonItem.title = NSLocalizedString(@"Passwords", nil);
-    [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
+    [topBarItems insertObject:barButtonItem atIndex:0];
+    topBar.items = topBarItems;
     popoverController = nil;
 }
 
@@ -124,6 +141,8 @@
 
 - (void)splitViewController:(UISplitViewController *)splitController willShowViewController:(UIViewController *)viewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
+    [topBarItems removeObject:barButtonItem];
+    topBar.items = topBarItems;
     // Called when the view is shown again in the split view, invalidating the button and popover controller.
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
 }

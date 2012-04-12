@@ -1331,12 +1331,12 @@
 				689D046313A42CA8005EBD36 /* Cells */,
 				52370CB314F2CDC3003DC64C /* Lock Screen */,
 				68F19D1B14EB3A3900B772CB /* Password Generator */,
-				689DFFE013A4273F005EBD36 /* Supporting Files */,
 				522F5E151508FD7E007E69A3 /* ViewControllers */,
 				529CC275150A50FE008BF4EC /* MKPViewController.h */,
 				529CC276150A50FE008BF4EC /* MKPViewController.m */,
 				529CC278150A5250008BF4EC /* MKPTableViewController.h */,
 				529CC279150A5251008BF4EC /* MKPTableViewController.m */,
+				689DFFE013A4273F005EBD36 /* Supporting Files */,
 			);
 			path = MiniKeePass;
 			sourceTree = "<group>";
