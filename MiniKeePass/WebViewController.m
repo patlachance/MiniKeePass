@@ -132,6 +132,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self updateButtons];
+    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
