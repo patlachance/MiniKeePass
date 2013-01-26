@@ -112,14 +112,8 @@
 }
 
 - (void)autotypeString:(NSString *)string {
-    NSInteger n = [string length];
-    NSInteger i;
-
-    for (i = 0; i < n; i++) {
-        NSString *script = [NSString stringWithFormat:@"var event = document.createEvent(\"KeyboardEvent\"); event.initKeyEvent(\"keypress\", true, true, window, 1, 0, 0, 0, 0, %d, %d); body.dispatchEvent(event);", [string characterAtIndex:i], [string characterAtIndex:i]];
-        NSLog(@"Generating %d", [string characterAtIndex:i]);
-        [_webView stringByEvaluatingJavaScriptFromString:script];
-    }
+    NSString *script = [NSString stringWithFormat:@"if (document.activeElement) { document.activeElement.value = '%@'; }", string];
+    [_webView stringByEvaluatingJavaScriptFromString:script];
 }
 
 - (void)autotypeUsernamePressed {
